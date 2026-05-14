@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha - Institutional-Grade Quantitative Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#06080f;--accent:#c9a84c;--accent2:#e2c36b;--glow:rgba(201,168,76,0.2);--text:#f1f5f9;--text2:#94a3b8;--text3:#475569}
+        body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden}
+        a{color:inherit;text-decoration:none}
+
+        /* BG */
+        .grid-bg{position:fixed;inset:0;z-index:0;opacity:.025;
+            background-image:linear-gradient(rgba(255,255,255,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.15) 1px,transparent 1px);
+            background-size:80px 80px;animation:gm 25s linear infinite}
+        @keyframes gm{to{transform:translate(80px,80px)}}
+        .orb{position:fixed;border-radius:50%;filter:blur(140px);z-index:0}
+        .orb.a{width:700px;height:700px;background:var(--accent);top:-300px;right:-200px;opacity:.06;animation:of 18s ease-in-out infinite}
+        .orb.b{width:500px;height:500px;background:#22d3ee;bottom:-200px;left:-100px;opacity:.04;animation:of 18s ease-in-out infinite 6s}
+        .orb.c{width:400px;height:400px;background:#a78bfa;top:50%;left:50%;opacity:.03;animation:of 18s ease-in-out infinite 12s}
+        @keyframes of{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-50px) scale(1.15)}66%{transform:translate(-30px,30px) scale(0.9)}}
+
+        /* PARTICLES */
+        .particles{position:fixed;inset:0;z-index:0;overflow:hidden}
+        .particle{position:absolute;width:2px;height:2px;background:var(--accent);border-radius:50%;opacity:0;animation:rise linear infinite}
+        @keyframes rise{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:.6}90%{opacity:.6}100%{opacity:0;transform:translateY(-10vh) scale(1)}}
+
+        /* NAV */
+        .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;
+            backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.04);
+            animation:fadeD .8s ease both}
+        @keyframes fadeD{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+        .nav-logo{display:flex;align-items:center;gap:12px}
+        .nav-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:10px;
+            display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:var(--bg);
+            box-shadow:0 0 25px var(--glow);animation:lp 3s ease-in-out infinite}
+        @keyframes lp{0%,100%{box-shadow:0 0 20px var(--glow)}50%{box-shadow:0 0 45px var(--glow)}}
+        .nav-name{font-size:18px;font-weight:800;letter-spacing:3px;
+            background:linear-gradient(135deg,var(--accent),var(--accent2),#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .nav-link{padding:10px 28px;border:1px solid var(--accent);border-radius:8px;color:var(--accent);font-size:13px;font-weight:600;
+            letter-spacing:.5px;transition:all .4s;position:relative;overflow:hidden}
+        .nav-link::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent),var(--accent2));
+            transform:translateX(-101%);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+        .nav-link:hover{color:var(--bg);border-color:var(--accent);box-shadow:0 0 30px var(--glow)}
+        .nav-link:hover::before{transform:none}
+        .nav-link span{position:relative;z-index:1}
+
+        /* HERO */
+        .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+            position:relative;z-index:1;padding:0 24px}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border:1px solid rgba(201,168,76,.25);
+            border-radius:24px;font-size:11px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;font-weight:600;
+            background:rgba(201,168,76,.05);margin-bottom:28px;animation:fadeU 1s cubic-bezier(.16,1,.3,1) both .2s}
+        .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:dp 2s ease-in-out infinite}
+        @keyframes dp{0%,100%{opacity:1}50%{opacity:.3}}
+        @keyframes fadeU{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+
+        .hero h1{font-size:clamp(48px,8vw,88px);font-weight:900;line-height:1.05;margin-bottom:24px;
+            animation:fadeU 1s cubic-bezier(.16,1,.3,1) both .4s}
+        .hero h1 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2),#fff,var(--accent));background-size:300% 300%;
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 5s ease infinite}
+        @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+        .hero-sub{font-size:18px;color:var(--text2);max-width:600px;line-height:1.8;margin-bottom:44px;
+            animation:fadeU 1s cubic-bezier(.16,1,.3,1) both .6s}
+
+        .hero-cta{display:inline-flex;align-items:center;gap:10px;padding:18px 44px;
+            background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:14px;
+            color:var(--bg);font-family:'Inter',sans-serif;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+            cursor:pointer;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.16,1,.3,1);
+            animation:fadeU 1s cubic-bezier(.16,1,.3,1) both .8s}
+        .hero-cta::before{content:'';position:absolute;inset:0;
+            background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.25) 50%,transparent 70%);
+            transform:translateX(-120%);transition:transform .7s}
+        .hero-cta:hover{transform:translateY(-3px);box-shadow:0 15px 50px var(--glow)}
+        .hero-cta:hover::before{transform:translateX(120%)}
+        .hero-cta svg{width:18px;height:18px;transition:transform .3s}
+        .hero-cta:hover svg{transform:translateX(4px)}
+
+        .scroll-hint{position:absolute;bottom:40px;display:flex;flex-direction:column;align-items:center;gap:8px;
+            animation:fadeU 1s ease both 1.2s}
+        .scroll-hint span{font-size:10px;color:var(--text3);letter-spacing:2px;text-transform:uppercase}
+        .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollP 2s ease-in-out infinite}
+        @keyframes scrollP{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+
+        /* FEATURES */
+        .features{padding:120px 48px;position:relative;z-index:1}
+        .features-title{text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin-bottom:12px}
+        .features h2{text-align:center;font-size:40px;font-weight:800;margin-bottom:60px}
+        .f-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+        .f-card{background:rgba(17,24,39,.5);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.05);
+            border-radius:16px;padding:36px 28px;transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+        .f-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+            background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .4s}
+        .f-card:hover{transform:translateY(-8px);border-color:rgba(255,255,255,.1);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+        .f-card:hover::before{opacity:1}
+        .f-icon{width:48px;height:48px;border-radius:12px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.15);
+            display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px}
+        .f-card h3{font-size:16px;font-weight:700;margin-bottom:10px}
+        .f-card p{font-size:13px;color:var(--text2);line-height:1.7}
+
+        /* STATS */
+        .stats{padding:80px 48px;position:relative;z-index:1}
+        .stats-row{display:flex;justify-content:center;gap:80px;max-width:900px;margin:0 auto;
+            border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:50px 0}
+        .stat{text-align:center}
+        .stat .num{font-size:48px;font-weight:900;
+            background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .stat .lbl{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:2px;margin-top:6px}
+
+        /* CTA */
+        .cta-section{padding:100px 48px;text-align:center;position:relative;z-index:1}
+        .cta-section h2{font-size:36px;font-weight:800;margin-bottom:16px}
+        .cta-section p{color:var(--text2);margin-bottom:36px;font-size:16px}
+
+        /* FOOTER */
+        .foot{padding:30px 48px;border-top:1px solid rgba(255,255,255,.04);text-align:center;font-size:11px;color:var(--text3);
+            position:relative;z-index:1}
+
+        @media(max-width:768px){.f-grid{grid-template-columns:1fr}.stats-row{flex-direction:column;gap:36px}.nav{padding:16px 20px}}
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+    <div class="particles" id="particles"></div>
+
+    <nav class="nav">
+        <div class="nav-logo">
+            <div class="nav-mark">A</div>
+            <span class="nav-name">ALPHA</span>
+        </div>
+        <a href="/dashboard" class="nav-link"><span>Launch Dashboard</span></a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-badge"><span class="dot"></span> Institutional-Grade Analytics</div>
+        <h1>Backtest.<br><span class="grad">Analyze. Outperform.</span></h1>
+        <p class="hero-sub">Alpha is a quantitative trading and risk analytics engine. Test strategies on any stock, index, or crypto with real market data, realistic friction costs, and institutional risk metrics.</p>
+        <a href="/dashboard" class="hero-cta">
+            Launch Dashboard
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div class="scroll-hint"><span>Explore</span><div class="scroll-line"></div></div>
+    </section>
+
+    <section class="features">
+        <div class="features-title">What Alpha Does</div>
+        <h2>Built for Serious Analysis</h2>
+        <div class="f-grid">
+            <div class="f-card">
+                <div class="f-icon">&#x1F4CA;</div>
+                <h3>Live Market Data</h3>
+                <p>Pull 7+ years of real OHLCV data for any stock, index, or crypto from Yahoo Finance. No API keys. No limits. Completely free.</p>
+            </div>
+            <div class="f-card">
+                <div class="f-icon">&#x26A1;</div>
+                <h3>Smart Signals</h3>
+                <p>Dual MA Crossover + RSI confluence filter. Only trades when both trend and momentum agree, dramatically reducing false signals.</p>
+            </div>
+            <div class="f-card">
+                <div class="f-icon">&#x1F3AF;</div>
+                <h3>Realistic Backtesting</h3>
+                <p>Simulates trades with 0.1% slippage and 0.1% commission. These friction costs separate academic backtests from real-world strategies.</p>
+            </div>
+            <div class="f-card">
+                <div class="f-icon">&#x1F6E1;</div>
+                <h3>Risk Metrics</h3>
+                <p>Sharpe Ratio, Maximum Drawdown, Calmar Ratio, and Alpha vs benchmark. The same metrics hedge funds use to evaluate managers.</p>
+            </div>
+            <div class="f-card">
+                <div class="f-icon">&#x1F4C8;</div>
+                <h3>Interactive Charts</h3>
+                <p>Candlestick charts, RSI oscillator, cumulative returns comparison, and drawdown timeline. All interactive with Plotly.</p>
+            </div>
+            <div class="f-card">
+                <div class="f-icon">&#x1F310;</div>
+                <h3>Global Coverage</h3>
+                <p>NIFTY, SENSEX, S&P 500, NASDAQ, individual stocks, Bitcoin, Gold, Crude Oil. If Yahoo Finance has it, Alpha can analyze it.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-row">
+            <div class="stat"><div class="num">30+</div><div class="lbl">Preset Tickers</div></div>
+            <div class="stat"><div class="num">7yr</div><div class="lbl">Historical Data</div></div>
+            <div class="stat"><div class="num">8</div><div class="lbl">Risk Metrics</div></div>
+            <div class="stat"><div class="num">4</div><div class="lbl">Interactive Charts</div></div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to analyze?</h2>
+        <p>Pick any ticker. Tune the strategy. Get institutional-grade results in seconds.</p>
+        <a href="/dashboard" class="hero-cta" style="animation:none">
+            Open Dashboard
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </section>
+
+    <div class="foot">ALPHA &middot; Quantitative Analytics Engine &middot; Built for IIM-level research</div>
+
+    <script>
+        // Generate floating particles
+        const pc=document.getElementById('particles');
+        for(let i=0;i<30;i++){
+            const p=document.createElement('div');p.className='particle';
+            p.style.left=Math.random()*100+'%';
+            p.style.animationDuration=(8+Math.random()*12)+'s';
+            p.style.animationDelay=Math.random()*10+'s';
+            p.style.width=p.style.height=(1+Math.random()*2)+'px';
+            pc.appendChild(p);
+        }
+
+        // Intersection observer for scroll animations
+        const observer=new IntersectionObserver((entries)=>{
+            entries.forEach(e=>{if(e.isIntersecting){e.target.style.animation='fadeU .8s cubic-bezier(.16,1,.3,1) both';e.target.style.opacity='1'}})
+        },{threshold:0.15});
+        document.querySelectorAll('.f-card,.stat').forEach(el=>{el.style.opacity='0';observer.observe(el)});
+    </script>
+</body>
+</html>
